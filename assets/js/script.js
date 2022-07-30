@@ -23,16 +23,17 @@ questions = {
 buttonEl.on('click', function () {
     // Check game state, change buttons if needed.
     if (questionNum === 0) {
+        userName = prompt('Please enter initials.');
         startEl.append('<button id="cancel" type="button">Reset</button>');
         $('#cancel').on('click', function () {
-            console.log('cancel I say.')
             continueGame = true;
             questionEl.empty();
             answersEl.empty();
             buttonEl.text('Play again?');
             $('#cancel').remove();
             questionNum = 0;
-        })
+            userName = '';
+        });
     }
     if (continueGame === true) {
         buttonEl.text('Continue');
@@ -42,6 +43,7 @@ buttonEl.on('click', function () {
         buttonEl.text('Play again?');
         $('#cancel').remove();
         questionNum = 0;
+        userName = '';
         continueGame = true;
         return;
     }
@@ -53,7 +55,7 @@ buttonEl.on('click', function () {
     // loop through the answers.
     for (var a in answer) {
         // for each answer, append it to the ol, split where I decided to use : as separator in my storage layer.
-        answersEl.append('<li>' + answer[a].split(':')[0] + '</li>');
+        answersEl.append('<input type="radio"  data-index="' + a + '">' + answer[a].split(':')[0] + '</input>');
     }
     continueGame = Object.entries(questions)[questionNum + 1] !== undefined;
     questionNum++;
