@@ -22,21 +22,37 @@ questions = {
 
 buttonEl.on('click', function () {
     // Check game state, change buttons if needed.
+    if (questionNum === 0) {
+        startEl.append('<button id="cancel" type="button">Reset</button>');
+        $('#cancel').on('click', function () {
+            console.log('cancel I say.')
+            continueGame = true;
+            questionEl.empty();
+            answersEl.empty();
+            buttonEl.text('Play again?');
+            $('#cancel').remove();
+            questionNum = 0;
+        })
+    }
     if (continueGame === true) {
         buttonEl.text('Continue');
     } else {
         questionEl.empty();
         answersEl.empty();
         buttonEl.text('Play again?');
+        $('#cancel').remove();
         questionNum = 0;
         continueGame = true;
         return;
     }
+    // set the question and answer pairs to be used for display.
     var [question, answer] = Object.entries(questions)[questionNum];
     questionEl.text(question);
+    // clear answers each click.
     answersEl.empty();
+    // loop through the answers.
     for (var a in answer) {
-        console.log(answer[a]);
+        // for each answer, append it to the ol, split where I decided to use : as separator in my storage layer.
         answersEl.append('<li>' + answer[a].split(':')[0] + '</li>');
     }
     continueGame = Object.entries(questions)[questionNum + 1] !== undefined;
