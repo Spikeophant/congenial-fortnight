@@ -1,7 +1,16 @@
 // Quiz!
+// Initialize vars.
 var questionEl = $('#question');
 var answersEl = $('#answers');
 var buttonEl = $('#startBtn');
+var startEl = $('#startOrSubmit');
+var scores = localStorage.getItem('scores');
+var userName = '';
+var questionNum = 0;
+var continueGame = true;
+var showScore = function () {
+    alert(scores);
+};
 //array of question/anwer pairs.
 // get real question later.
 questions = {
@@ -11,29 +20,19 @@ questions = {
 };
 
 
-//list of all answers, we'll use these randomly to fill in the other questions for fun.
-var wrongAnswers = ['otherAnswer', 'otherAnswer333'];
-var scores = localStorage.getItem('scores');
-var userName = '';
-var questionNum = 0;
-
-var showScore = function () {
-    alert(scores);
-};
-var state = 'Continue';
 buttonEl.on('click', function () {
-    if (state === 'Continue') {
+    if (continueGame === true) {
         buttonEl.text('Continue');
     } else {
         questionEl.empty();
         answersEl.empty();
         buttonEl.text('Play again?');
         questionNum = 0;
-        state = 'Continue';
+        continueGame = true;
         return;
     }
-    console.log(state);
-    if (state === 'Finished') {
+    console.log(continueGame);
+    if (continueGame === false) {
         alert('The game is complete, please refresh to start a new game or view scores.');
         return;
     }
@@ -47,9 +46,9 @@ buttonEl.on('click', function () {
         answersEl.append('<li>' + answer[a].split(':')[0] + '</li>');
     }
     if (Object.entries(questions)[questionNum + 1] === undefined) {
-        state = 'Finished';
+        continueGame = false;
     } else {
-        state = 'Continue';
+        continueGame = true;
     }
     questionNum++;
 
