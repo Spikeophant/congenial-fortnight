@@ -39,11 +39,7 @@ buttonEl.on('click', function () {
         console.log(answer[a]);
         answersEl.append('<li>' + answer[a].split(':')[0] + '</li>');
     }
-    if (Object.entries(questions)[questionNum + 1] === undefined) {
-        continueGame = false;
-    } else {
-        continueGame = true;
-    }
+    continueGame = Object.entries(questions)[questionNum + 1] !== undefined;
     questionNum++;
 
 });
