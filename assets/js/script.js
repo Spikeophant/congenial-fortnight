@@ -21,6 +21,7 @@ questions = {
 
 
 buttonEl.on('click', function () {
+    // Check game state, change buttons if needed.
     if (continueGame === true) {
         buttonEl.text('Continue');
     } else {
@@ -31,14 +32,7 @@ buttonEl.on('click', function () {
         continueGame = true;
         return;
     }
-    console.log(continueGame);
-    if (continueGame === false) {
-        alert('The game is complete, please refresh to start a new game or view scores.');
-        return;
-    }
     var [question, answer] = Object.entries(questions)[questionNum];
-    console.log(question);
-    console.log(answer);
     questionEl.text(question);
     answersEl.empty();
     for (var a in answer) {
