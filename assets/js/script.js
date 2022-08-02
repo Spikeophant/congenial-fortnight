@@ -11,6 +11,8 @@ var continueGame = true;
 var showScore = function () {
     alert(scores);
 };
+var score = 0;
+var answers = [];
 //array of question/answer pairs.
 // get real question later.
 questions = {
@@ -31,9 +33,9 @@ var setNameAndScore = function (name, score) {
 };
 setNameAndScore('dd', '10');
 
-var checkandResetGameState = function (questionNum, continueGame) {
-    if (continueGame) {
-        if (questionNum === 0) {
+var checkandResetGameState = function (qn, cg) {
+    if (cg) {
+        if (qn === 0) {
             startEl.append('<button id="cancel" type="button">Reset</button>');
             $('#cancel').on('click', function () {
                 continueGame = true;
@@ -45,29 +47,56 @@ var checkandResetGameState = function (questionNum, continueGame) {
                 userName = '';
                 return true;
             });
+            score = 0;
+            return true;
         } else {
-            questionEl.empty();
-            answersEl.empty();
-            buttonEl.text('Play again?');
-            $('#cancel').remove();
-            questionNum = 0;
-            userName = '';
-            continueGame = true;
-            return false;
+            answers.push($('.selectedAnswer:checked').data('index'));
+            return true;
         }
+    } else {
+        answers.push($('.selectedAnswer:checked').data('index'));
+        console.log(answers)
+        checkScore(answers);
+        answers = [];
+        questionEl.empty();
+        answersEl.empty();
+        buttonEl.text('Play again?');
+        $('#cancel').remove();
+        questionNum = 0;
+        continueGame = true;
+        return false;
     }
-}
+
+};
+
+var checkScore = function (aI) {
+    for (var a = 0; a < aI.length; a++) {
+        var test = Object.values(questions)[a]
+        var testNum = aI[a]
+        if (test[testNum].split(':').length > 1) {
+            score++
+        }
+
+    }
+    console.log(score)
+};
 
 buttonEl.on('click', function () {
-    if (checkandResetGameState(questionNum, continueGame)){
+    if (questionNum > 0) {
+        $('#selectedAnswer:checked').val();
+    }
+    if (checkandResetGameState(questionNum, continueGame)) {
         buttonEl.text('Continue');
+    } else {
+        return;
     }
     // set the question and answer pairs to be used for display.
-    var [question, answer] = Object.entries(questions)[questionNum];
+    if (questionNum < Object.keys(questions).length) {
+        var [question, answer] = Object.entries(questions)[questionNum];
 
-    questionEl.text(question);
+        questionEl.text(question);
+    }
     // Check game state, change buttons if needed.
-
 
 
     // clear answers each click.
