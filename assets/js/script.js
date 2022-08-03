@@ -16,8 +16,8 @@ var answers = [];
 //array of question/answer pairs.
 // get real question later.
 questions = {
-    'Question 1?': ['answer', 'answer2:correct', 'answer3'],
-    'Question 2?': ['answer:correct', 'answerq2', 'answerq3'],
+    'Which of the following is NOT a Javascript data type?': ['Number', 'None:correct', 'String'],
+    'Which is a valid way to slice a string in Javascript?': ['.slice(start, end):correct', '.slice(str, index)', '.break(start, end)'],
     'Question 3?': ['answerq31', 'answerq32', 'answerq33:correct']
 };
 if (!scores) {
@@ -37,6 +37,7 @@ var checkandResetGameState = function (qn, cg) {
     if (cg) {
         if (qn === 0) {
             startEl.append('<button id="cancel" type="button">Reset</button>');
+
             $('#cancel').on('click', function () {
                 continueGame = true;
                 questionEl.empty();
