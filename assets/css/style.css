@@ -13,3 +13,16 @@ header a a:hover a:visited{
     text-decoration: none;
     color: lightgray;
 }
+
+header ul li {
+    display: inline-flex;
+    margin-right: 20%;
+}
+
+#headerTitle {
+    position: absolute;
+    right: 0;
+    padding-right: 5px;
+    margin-right: 10px;
+    color: black;
+}
