@@ -1,3 +1,15 @@
 body {
     font-family: 'IBM Plex Sans', sans-serif;
 }
+
+header {
+    display: flex;
+    background-color: gray;
+    color: lightgray;
+
+}
+
+header a a:hover a:visited{
+    text-decoration: none;
+    color: lightgray;
+}
