@@ -4,7 +4,7 @@ var questionEl = $('#question');
 var answersEl = $('#answers');
 var buttonEl = $('#startBtn');
 var startEl = $('#startOrSubmit');
-var scores = localStorage.getItem('scores');
+var scores = JSON.parse(localStorage.getItem('scores'))
 var userName = '';
 var questionNum = 0;
 var continueGame = true;
@@ -56,7 +56,7 @@ var checkandResetGameState = function (qn, cg) {
         }
     } else {
         answers.push($('.selectedAnswer:checked').data('index'));
-        console.log(answers)
+        console.log(answers);
         checkScore(answers);
         answers = [];
         questionEl.empty();
@@ -72,14 +72,14 @@ var checkandResetGameState = function (qn, cg) {
 
 var checkScore = function (aI) {
     for (var a = 0; a < aI.length; a++) {
-        var test = Object.values(questions)[a]
-        var testNum = aI[a]
+        var test = Object.values(questions)[a];
+        var testNum = aI[a];
         if (test[testNum].split(':').length > 1) {
-            score++
+            score++;
         }
 
     }
-    console.log(score)
+    console.log(score);
 };
 
 buttonEl.on('click', function () {
